@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Science & Spirituality Commentary</title>
+    <title>Palmer Commentary & Insight</title>
     <style>
-        /* ==========================================
+        /* ==========================================================================
            PREMIUM ACADEMIC DARK MODE STYLES
-           ========================================== */
+           ========================================================================== */
         :root {
             --bg-color: #0d0d0d;
             --bg-card: #161614;
@@ -15,10 +15,11 @@
             --text-main: #e0e0d8;
             --text-muted: #8a8a82;
             --text-cream: #f0e6d2;
-            --accent: #d4af37; /* Muted gold */
-            --accent-dim: #8a7028;
-            --border: #2a2a28;
+            --accent-gold: #d4af37;
+            --accent-gold-dim: rgba(212, 175, 55, 0.15);
+            --border-color: #262624;
             --border-light: #3a3a38;
+            --max-width: 720px;
             --font-serif: 'Georgia', 'Times New Roman', serif;
             --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
@@ -36,100 +37,168 @@
             font-family: var(--font-sans);
             line-height: 1.7;
             font-size: 17px;
+            padding-bottom: 60px;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* --- EDITABLE SECTIONS (Hidden from view) --- */
-        #article-source, #cards-source {
-            display: none;
-        }
-
-        /* --- LAYOUT --- */
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 40px 20px 80px;
         }
 
         header {
+            max-width: var(--max-width);
+            margin: 40px auto 20px auto;
+            padding: 0 20px;
             text-align: center;
-            margin-bottom: 60px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
         }
 
         header h1 {
             font-family: var(--font-serif);
-            font-size: 1.8rem;
             color: var(--text-cream);
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            font-size: 2.2rem;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            cursor: pointer;
         }
 
         header p {
             color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            margin-top: 15px;
+        }
+
+        .nav-links a {
+            color: var(--accent-gold);
+            text-decoration: none;
             font-size: 0.9rem;
-            margin-top: 5px;
-            font-style: italic;
+            margin: 0 10px;
+            border-bottom: 1px dotted transparent;
+            transition: border-color 0.2s;
         }
 
-        /* --- ARTICLE STYLING --- */
-        article {
+        .nav-links a:hover {
+            border-color: var(--accent-gold);
+        }
+
+        main {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Home Feed View */
+        .feed-container { display: block; }
+        
+        .post-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .post-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-gold);
+        }
+
+        .post-card h2 {
             font-family: var(--font-serif);
+            color: var(--text-cream);
+            margin-bottom: 8px;
+            font-size: 1.5rem;
+            line-height: 1.3;
         }
 
-        article h2 {
-            font-size: 2rem;
+        .post-card .meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .post-card p {
+            color: var(--text-main);
+            opacity: 0.85;
+            font-size: 0.98rem;
+        }
+
+        /* Article View Styles */
+        .article-container { display: none; }
+        
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--accent-gold);
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 24px;
+            font-family: inherit;
+        }
+
+        .article-header h2 {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
             color: var(--text-cream);
             line-height: 1.3;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
 
-        .meta {
-            font-family: var(--font-sans);
+        .article-meta {
             color: var(--text-muted);
             font-size: 0.85rem;
-            margin-bottom: 40px;
-            display: block;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            border-left: 2px solid var(--accent);
-            padding-left: 10px;
-        }
-
-        article p {
             margin-bottom: 30px;
+            border-left: 2px solid var(--accent-gold);
+            padding-left: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        article p:first-of-type::first-letter {
+        .article-body {
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            color: var(--text-main);
+            letter-spacing: 0.1px;
+        }
+
+        .article-body p {
+            margin-bottom: 24px;
+        }
+
+        /* Dropcap implementation */
+        .article-body p:first-of-type::first-letter {
+            font-family: var(--font-serif);
+            font-size: 3.8rem;
+            font-weight: bold;
             float: left;
-            font-size: 3.5rem;
+            margin-top: 8px;
+            margin-right: 10px;
             line-height: 0.8;
-            padding-right: 10px;
-            padding-top: 5px;
-            color: var(--accent);
-            font-weight: bold;
+            color: var(--accent-gold);
         }
 
-        /* --- INLINE CITATION LINKS --- */
         .inline-card {
-            color: var(--accent);
-            text-decoration: none;
-            border-bottom: 1px dotted var(--accent-dim);
+            color: var(--accent-gold);
+            border-bottom: 1px dashed var(--accent-gold);
             cursor: pointer;
-            transition: all 0.2s ease;
-            font-weight: bold;
+            font-weight: 500;
+            transition: background 0.2s;
         }
 
         .inline-card:hover {
-            color: var(--text-cream);
-            background: rgba(212, 175, 55, 0.1);
-            border-bottom: 1px solid var(--accent);
+            background: var(--accent-gold-dim);
         }
 
-        /* --- OVERLAY CARD DRAWER --- */
-        #card-overlay {
+        /* Drawer / Modal Citations Overlay */
+        .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -137,147 +206,138 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(8px);
-            z-index: 1000;
-            display: none;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            display: flex;
             justify-content: center;
             align-items: flex-end;
-            opacity: 0;
-            transition: opacity 0.3s ease;
         }
 
-        #card-overlay.active {
-            display: flex;
+        .modal-overlay.active {
             opacity: 1;
+            pointer-events: auto;
         }
 
-        .profile-card {
+        .drawer-card {
             background: var(--bg-card);
             width: 100%;
             max-width: 500px;
-            border-top: 1px solid var(--accent);
-            border-left: 1px solid var(--border-light);
-            border-right: 1px solid var(--border-light);
-            border-radius: 4px 4px 0 0;
+            border-top: 1px solid var(--accent-gold);
+            border-radius: 12px 12px 0 0;
+            padding: 30px;
+            z-index: 2001;
             transform: translateY(100%);
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
             max-height: 85vh;
             overflow-y: auto;
-        }
-
-        #card-overlay.active .profile-card {
-            transform: translateY(0);
+            position: relative;
         }
 
         @media (min-width: 768px) {
-            #card-overlay {
+            .modal-overlay {
                 align-items: center;
             }
-            .profile-card {
-                border-radius: 4px;
+            .drawer-card {
+                border-radius: 8px;
                 border: 1px solid var(--border-light);
                 transform: scale(0.9);
-                opacity: 0;
             }
-            #card-overlay.active .profile-card {
-                transform: scale(1);
-                opacity: 1;
+            .modal-overlay.active .drawer-card {
+                transform: translateY(0) scale(1);
             }
         }
 
-        .card-close {
+        .modal-overlay.active .drawer-card {
+            transform: translateY(0);
+        }
+
+        .drawer-close {
             position: absolute;
             top: 15px;
             right: 15px;
-            background: rgba(0,0,0,0.5);
-            border: 1px solid var(--border-light);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
             color: var(--text-main);
             width: 36px;
             height: 36px;
             border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            font-size: 1.2rem;
-            z-index: 10;
-            transition: all 0.2s;
         }
 
-        .card-close:hover {
-            background: var(--accent);
+        .drawer-close:hover {
+            background: var(--accent-gold);
             color: #000;
-            border-color: var(--accent);
+            border-color: var(--accent-gold);
         }
 
-        .card-image {
+        .drawer-img {
             width: 100%;
-            height: 200px;
+            height: 180px;
             object-fit: cover;
-            border-bottom: 1px solid var(--border);
+            border-radius: 6px;
+            margin-bottom: 20px;
             background: #000;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .card-content {
-            padding: 30px;
-        }
-
-        .card-date {
-            font-family: var(--font-sans);
-            color: var(--accent);
+        .drawer-date {
             font-size: 0.75rem;
+            color: var(--accent-gold);
+            margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 10px;
             display: block;
         }
 
-        .card-title {
+        .drawer-title {
             font-family: var(--font-serif);
-            font-size: 1.8rem;
             color: var(--text-cream);
-            margin-bottom: 20px;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
             line-height: 1.2;
         }
 
-        .card-summary {
-            font-family: var(--font-serif);
-            color: var(--text-main);
+        .drawer-abstract {
             font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
+            color: var(--text-main);
+            opacity: 0.9;
+            margin-bottom: 25px;
             border-left: 2px solid var(--border-light);
             padding-left: 15px;
         }
 
-        .card-btn {
+        .drawer-btn {
             display: block;
-            width: 100%;
-            padding: 15px;
-            background: transparent;
-            color: var(--accent);
-            border: 1px solid var(--accent);
             text-align: center;
+            background: transparent;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 12px;
+            border-radius: 4px;
             text-decoration: none;
-            font-family: var(--font-sans);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.85rem;
             font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
             transition: all 0.2s;
-            border-radius: 2px;
         }
 
-        .card-btn:hover {
-            background: var(--accent);
+        .drawer-btn:hover {
+            background: var(--accent-gold);
             color: #000;
         }
 
-        /* --- COMMENT & REVIEW SECTION --- */
+        /* Comments & Ratings */
         #comments-section {
-            margin-top: 80px;
+            margin-top: 60px;
             padding-top: 40px;
-            border-top: 1px solid var(--border);
+            border-top: 1px solid var(--border-color);
         }
 
         .section-header {
@@ -293,89 +353,73 @@
             align-items: center;
             padding: 30px;
             background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
             margin-bottom: 40px;
         }
 
         .rating-widget p {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .stars {
-            display: flex;
-            gap: 10px;
-        }
-
+        .stars { display: flex; gap: 10px; }
         .star {
             font-size: 2rem;
             color: var(--border-light);
             cursor: pointer;
             transition: color 0.2s;
         }
+        .star.active { color: var(--accent-gold); }
 
-        .star.active {
-            color: var(--accent);
-        }
-
-        .comment-form {
-            margin-bottom: 40px;
-        }
+        .comment-form { margin-bottom: 40px; }
 
         .comment-form textarea {
             width: 100%;
             background: var(--bg-card);
-            border: 1px solid var(--border);
+            border: 1px solid var(--border-color);
             color: var(--text-main);
             padding: 15px;
             border-radius: 4px;
             font-family: var(--font-sans);
             font-size: 1rem;
             min-height: 100px;
-            resize: vertical;
             margin-bottom: 10px;
+            resize: vertical;
         }
 
-        .comment-form textarea:focus {
-            outline: none;
-            border-color: var(--accent-dim);
-        }
+        .comment-form textarea:focus { border-color: var(--accent-gold); outline: none; }
 
         .btn-submit {
-            background: var(--accent);
+            background: var(--accent-gold);
             color: #000;
             border: none;
-            padding: 12px 25px;
             font-weight: bold;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            border-radius: 2px;
             transition: background 0.2s;
         }
 
-        .btn-submit:hover {
-            background: var(--text-cream);
-        }
+        .btn-submit:hover { background: var(--text-cream); }
 
-        .comment-thread {
-            list-style: none;
-        }
+        .comment-thread { list-style: none; }
 
         .comment {
-            border-left: 2px solid var(--border);
+            border-left: 2px solid var(--border-color);
             padding-left: 20px;
             margin-bottom: 25px;
-            position: relative;
         }
 
         .comment.reply {
-            margin-left: 30px;
+            margin-left: 20px;
             margin-top: 20px;
             border-left-color: var(--border-light);
         }
@@ -384,25 +428,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
-        .comment-author {
-            font-weight: bold;
-            color: var(--text-cream);
-            font-size: 0.95rem;
-        }
-
-        .comment-date {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
-
-        .comment-body {
-            color: var(--text-main);
-            font-size: 0.95rem;
-            margin-bottom: 10px;
-        }
+        .comment-author { font-weight: bold; color: var(--text-cream); font-size: 0.95rem; }
+        .comment-date { color: var(--text-muted); font-size: 0.8rem; }
+        .comment-body { color: var(--text-main); font-size: 0.95rem; margin-bottom: 8px; }
 
         .btn-reply {
             background: none;
@@ -413,345 +444,557 @@
             text-decoration: underline;
             padding: 0;
         }
+        .btn-reply:hover { color: var(--accent-gold); }
 
-        .btn-reply:hover {
-            color: var(--accent);
-        }
-
-        .reply-form {
-            margin-top: 15px;
-            display: none;
-        }
-
-        .reply-form.active {
-            display: block;
-        }
+        .reply-form { margin-top: 15px; display: none; }
+        .reply-form.active { display: block; }
 
         .reply-form textarea {
             width: 100%;
             background: var(--bg-color);
-            border: 1px solid var(--border);
+            border: 1px solid var(--border-color);
             color: var(--text-main);
             padding: 10px;
-            border-radius: 2px;
+            border-radius: 4px;
             font-family: var(--font-sans);
             font-size: 0.9rem;
             min-height: 60px;
             margin-bottom: 5px;
         }
 
-        /* --- EXTERNAL SCRIPT PLACEHOLDER --- */
-        #giscus-container {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px dashed var(--border);
+        /* Admin Section View */
+        .admin-container { display: none; }
+        
+        .admin-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 8px;
+        }
+
+        .admin-box h2 {
+            font-family: var(--font-serif);
+            margin-bottom: 20px;
+            color: var(--text-cream);
+            font-size: 1.8rem;
+        }
+
+        .form-group { margin-bottom: 16px; }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 12px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 16px; /* Prevents iOS zoom */
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--accent-gold);
+            outline: none;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-gold);
+            border: 1px dashed var(--accent-gold);
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            font-size: 0.85rem;
+        }
+
+        .wiki-builder-row {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .wiki-builder-row input, .wiki-builder-row textarea {
+            margin-bottom: 8px;
+            background: var(--bg-card);
+        }
+        
+        .wiki-builder-row input:last-child, .wiki-builder-row textarea:last-child {
+            margin-bottom: 0;
+        }
+
+        .remove-card-btn {
+            color: #ff4d4d;
+            background: none;
+            border: none;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 8px;
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-<!-- ==================================================================
-     EDITABLE AREA 1: ARTICLE CONTENT
-     (Edit the text below directly. It will update on your site.)
-     To create a popup card link, use this format:
-     <a class="inline-card" data-key="UNIQUE_KEY">Clickable Text</a>
-     ================================================================== -->
-<div id="article-source">
-    <span class="meta">Thread 7 · Research Commentary</span>
-    <h2>The Limits of Indexing: Monastic Preservation in the Digital Age</h2>
+    <header>
+        <h1 onclick="showHome()">Palmer Insight</h1>
+        <p>Science & Spirituality Commentary</p>
+        <div class="nav-links">
+            <a href="#" onclick="showHome(); return false;">Home Feed</a>
+            <a href="#admin" onclick="showAdmin(); return false;">Write Post</a>
+        </div>
+    </header>
 
-    <p>In the modern quest to bridge empirical science and esoteric spirituality, we frequently rely on AI-driven academic search engines to validate historical claims. Yet, as demonstrated in recent searches for the historical writings of Saint Germaine, these engines hit a hard epistemological boundary. Consensus AI, while powerful, primarily indexes peer-reviewed academic journals. It does not encompass the vast wealth of historical, esoteric, or religious texts that exist outside modern institutional databases.</p>
+    <main>
+        <!-- Home Feed Page -->
+        <div id="feed-view" class="feed-container"></div>
 
-    <p>This limitation forces us to ask: how has spiritual and historical knowledge survived outside the modern academic matrix? The answer lies in the desert and the monastery. Consider the legacy of <a class="inline-card" data-key="anthony">Saint Anthony the Great</a>, a figure whose ascetic life in the Egyptian desert became the foundational blueprint for Christian monasticism. The sayings attributed to him—such as "I saw all the snares of the enemy spread over the earth... Humility"—were not published in journals, but passed down orally and preserved in manuscript form by early communities.</p>
+        <!-- Single Article Reading Page -->
+        <div id="article-view" class="article-container">
+            <button class="back-btn" onclick="showHome()">← Back to Feed</button>
+            <div id="article-content-target"></div>
+        </div>
 
-    <p>These communities did more than pray; they were the intellectual bedrock of their eras. Monks preserved manuscripts, cultivated land, and helped shape the intellectual development of entire societies. Figures such as <a class="inline-card" data-key="benedict">Benedict of Nursia</a>, the mystic <a class="inline-card" data-key="hildegard">Hildegard of Bingen</a>, and modern contemplatives like <a class="inline-card" data-key="merton">Thomas Merton</a> continued this legacy. They prove that the pursuit of divine mystery and the preservation of earthly knowledge are inextricably linked, transcending any single search engine's index.</p>
-</div>
+        <!-- Secret Automated Content Publisher Admin Page -->
+        <div id="admin-view" class="admin-container">
+            <div class="admin-box">
+                <h2>Publish Content Engine</h2>
+                <div class="form-group">
+                    <label>GitHub Fine-Grained Token</label>
+                    <input type="password" id="gh-token" placeholder="github_pat_...">
+                </div>
+                <hr style="border-color: var(--border-color); margin: 20px 0;">
+                <div class="form-group">
+                    <label>Article Title</label>
+                    <input type="text" id="post-title" placeholder="e.g., The Alchemy of Consciousness">
+                </div>
+                <div class="form-group">
+                    <label>Brief Summary Feed Abstract</label>
+                    <textarea id="post-summary" rows="2" placeholder="Short description seen on the home timeline list..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Article Paragraph Text (HTML format)</label>
+                    <textarea id="post-content" rows="10" placeholder="Type paragraphs wrapped in <p>...</p> tags. Wrap keywords in <span class='inline-card' data-card='card-id'>Keyword</span> to connect popup wiki citation cards."></textarea>
+                </div>
 
-<!-- ==================================================================
-     EDITABLE AREA 2: POPUP CARD DATA
-     (Create or edit cards here. Ensure the 'data-key' matches the link above.)
-     ================================================================== -->
-<div id="cards-source">
-    <!-- CARD 1 -->
-    <div class="card-data" data-key="anthony">
-        <div class="card-title">Saint Anthony the Great</div>
-        <div class="card-date">c. 251 – 356 AD</div>
-        <div class="card-image">https://images.unsplash.com/photo-1585338447937-7082f8fc763d?q=80&w=1000&auto=format&fit=crop</div>
-        <div class="card-summary">Saint Anthony was a Christian monk from Egypt, revered as the founder of Christian monasticism. His ascetic life in the desert served as a foundational model for subsequent monastic traditions. The Sayings of the Desert Fathers attributes numerous teachings to him, emphasizing humility and spiritual resilience.</div>
-        <div class="card-link">https://en.wikipedia.org/wiki/Anthony_the_Great</div>
-    </div>
+                <div style="margin: 20px 0;">
+                    <label style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 10px;">Optional: Add Pop-up Wiki Citation Drawer(s)</label>
+                    <div id="wiki-cards-builder"></div>
+                    <button class="btn-secondary" onclick="addWikiCardRow()">+ Add Wiki Citation Card</button>
+                </div>
 
-    <!-- CARD 2 -->
-    <div class="card-data" data-key="benedict">
-        <div class="card-title">Benedict of Nursia</div>
-        <div class="card-date">c. 480 – 547 AD</div>
-        <div class="card-image">https://images.unsplash.com/photo-1532104173441-d3d1d2e6c0fc?q=80&w=1000&auto=format&fit=crop</div>
-        <div class="card-summary">Benedict was a monastic reformer whose "Rule of Saint Benedict" became the foundational guide for Western monasticism. He established the monastery of Monte Cassino, creating a structured community life based on prayer and manual labor. His influence standardized monastic practice across medieval Europe.</div>
-        <div class="card-link">https://en.wikipedia.org/wiki/Benedict_of_Nursia</div>
-    </div>
-
-    <!-- CARD 3 -->
-    <div class="card-data" data-key="hildegard">
-        <div class="card-title">Hildegard of Bingen</div>
-        <div class="card-date">1098 – 1179 AD</div>
-        <div class="card-image">https://images.unsplash.com/photo-1465778893808-5b8a05b6f7b5?q=80&w=1000&auto=format&fit=crop</div>
-        <div class="card-summary">Hildegard was a German Benedictine abbess, mystic, and polymath renowned for her theological, musical, and scientific writings. She produced major visionary works, composed liturgical songs, and wrote extensively on natural history and medicine. Her legacy bridges the gap between medieval spirituality and early scientific observation.</div>
-        <div class="card-link">https://en.wikipedia.org/wiki/Hildegard_of_Bingen</div>
-    </div>
-
-    <!-- CARD 4 -->
-    <div class="card-data" data-key="merton">
-        <div class="card-title">Thomas Merton</div>
-        <div class="card-date">1915 – 1968 AD</div>
-        <div class="card-image">https://images.unsplash.com/photo-1518107554-eb1c1c4d8b0a?q=80&w=1000&auto=format&fit=crop</div>
-        <div class="card-summary">Thomas Merton was a Trappist monk, theologian, and prolific writer who popularized contemplative spirituality in the modern era. His autobiography, "The Seven Storey Mountain," remains a classic of religious literature. In his later life, he became a prominent advocate for social justice and interfaith dialogue.</div>
-        <div class="card-link">https://en.wikipedia.org/wiki/Thomas_Merton</div>
-    </div>
-</div>
-
-
-<!-- ======================== RENDERED WEBSITE BELOW ======================== -->
-
-<header>
-    <h1>Science & Spirituality</h1>
-    <p>A Premium Research Commentary</p>
-</header>
-
-<div class="container">
-    <main id="article-render"></main>
-
-    <section id="comments-section">
-        <h3 class="section-header">Review & Community Discussion</h3>
-        
-        <div class="rating-widget">
-            <p>Rate this research piece</p>
-            <div class="stars">
-                <span class="star" data-value="1">★</span>
-                <span class="star" data-value="2">★</span>
-                <span class="star" data-value="3">★</span>
-                <span class="star" data-value="4">★</span>
-                <span class="star" data-value="5">★</span>
+                <button class="btn-submit" onclick="publishToGitHub()">Publish Post Live</button>
             </div>
         </div>
+    </main>
 
-        <div class="comment-form">
-            <textarea placeholder="Share your thoughts or insights on this thread..."></textarea>
-            <button class="btn-submit" onclick="postComment()">Post Comment</button>
-        </div>
-
-        <ul class="comment-thread" id="commentThread">
-            <!-- Mock Existing Comment -->
-            <li class="comment">
-                <div class="comment-header">
-                    <span class="comment-author">Dr. Aris Thorne</span>
-                    <span class="comment-date">2 days ago</span>
-                </div>
-                <div class="comment-body">
-                    Fascinating breakdown of the Consensus AI limits. It reminds me that much of human knowledge is still analog and deeply personal. The connection to Desert Fathers is a brilliant pivot.
-                </div>
-                <button class="btn-reply" onclick="toggleReply(this)">Reply</button>
-                <div class="reply-form">
-                    <textarea placeholder="Write a reply..."></textarea>
-                    <button class="btn-submit" style="font-size: 0.75rem; padding: 8px 15px;" onclick="postReply(this)">Submit Reply</button>
-                </div>
-                
-                <!-- Nested Reply -->
-                <ul class="comment-thread" style="margin-top: 20px;">
-                    <li class="comment reply">
-                        <div class="comment-header">
-                            <span class="comment-author">Elena R.</span>
-                            <span class="comment-date">1 day ago</span>
-                        </div>
-                        <div class="comment-body">
-                            Agreed. I'd love to see a follow-up thread on how manuscript preservation actually worked mechanically in those monasteries.
-                        </div>
-                        <button class="btn-reply" onclick="toggleReply(this)">Reply</button>
-                        <div class="reply-form">
-                            <textarea placeholder="Write a reply..."></textarea>
-                            <button class="btn-submit" style="font-size: 0.75rem; padding: 8px 15px;" onclick="postReply(this)">Submit Reply</button>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-
-        <!-- ==================================================================
-             GISCUS / DISQUS PLACEHOLDER
-             Paste your Giscus or Disqus embed code directly inside this div 
-             to activate a live, persistent database comment system.
-             ================================================================== -->
-        <div id="giscus-container">
-            <!-- <script src="https://giscus.app/client.js"
-                    data-repo="YOUR_REPO/YOUR_REPO"
-                    data-repo-id="YOUR_REPO_ID"
-                    data-category="Announcements"
-                    data-category-id="YOUR_CATEGORY_ID"
-                    data-mapping="pathname"
-                    data-strict="0"
-                    data-reactions-enabled="1"
-                    data-emit-metadata="0"
-                    data-input-position="bottom"
-                    data-theme="dark_dimmed"
-                    data-lang="en"
-                    crossorigin="anonymous"
-                    async>
-            </script> -->
-        </div>
-
-    </section>
-</div>
-
-<!-- POPUP OVERLAY CARD STRUCTURE -->
-<div id="card-overlay">
-    <div class="profile-card">
-        <div class="card-close" onclick="closeCard()">✕</div>
-        <img id="overlay-image" class="card-image" src="" alt="Profile Image">
-        <div class="card-content">
-            <span class="card-date" id="overlay-date"></span>
-            <h2 class="card-title" id="overlay-title"></h2>
-            <p class="card-summary" id="overlay-summary"></p>
-            <a href="#" id="overlay-btn" class="card-btn" target="_blank">Read Full Source</a>
+    <!-- Overlay Architecture Elements -->
+    <div class="modal-overlay" id="modal-overlay" onclick="closeDrawer()">
+        <div class="drawer-card" onclick="event.stopPropagation()">
+            <button class="drawer-close" onclick="closeDrawer()">✕</button>
+            <img src="" id="d-img" class="drawer-img">
+            <span class="drawer-date" id="d-date"></span>
+            <h3 id="d-title" class="drawer-title"></h3>
+            <p id="d-abstract" class="drawer-abstract"></p>
+            <a href="" id="d-link" target="_blank" class="drawer-btn">Read Deep-Dive Documentation</a>
         </div>
     </div>
-</div>
 
-<script>
-    // ==========================================
-    // CORE LOGIC: INJECTING CONTENT
-    // ==========================================
-    document.addEventListener('DOMContentLoaded', () => {
-        // Inject article text from the hidden source div
-        document.getElementById('article-render').innerHTML = document.getElementById('article-source').innerHTML;
+    <!-- ==========================================================================
+       AUTOMATED SYSTEM RUNTIME DATABASE & MOTOR FRAMEWORK
+       (The code engine edits the text inside these markers to save your posts)
+       ========================================================================== -->
+    <!-- BLOG_DATA_START -->
+    <script>
+    window.blogPosts = [
+      {
+        "id": "post-1",
+        "title": "Science & Spirituality Commentary Framework",
+        "date": "June 28, 2026",
+        "summary": "Bridging modern empirical exploration frameworks together smoothly with ancient spiritual paradigms and deep historic research vectors.",
+        "content": "<p>Welcome to your newly integrated blogging command node. This inaugural post serves as the structural proof of concept. The drop-cap engine is active on this primary paragraph element. Tapping on specialized highlight coordinates like <span class='inline-card' data-card='anthony'>Saint Anthony</span> will activate the dynamic overlay slide up card layout matrix natively.</p><p>You can add an unlimited array of cascading articles underneath this parent container effortlessly utilizing the built-in workspace platform dashboard.</p>",
+        "cards": [
+          {
+            "id": "anthony",
+            "title": "Saint Anthony",
+            "date": "251–356 AD",
+            "img": "https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=600",
+            "link": "https://en.wikipedia.org/wiki/Anthony_the_Great",
+            "abstract": "Anthony the Great was a Christian monk from Egypt, revered since his death as a saint. He is distinguished as the father of all desert monastic archetypes."
+          }
+        ]
+      }
+    ];
+    </script>
+    <!-- BLOG_DATA_END -->
 
-        // Attach click listeners to all inline cards
-        document.querySelectorAll('.inline-card').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                openCard(link.getAttribute('data-key'));
-            });
+    <script>
+        // Router Management Logic
+        window.addEventListener('hashchange', handleRoute);
+        window.addEventListener('load', () => {
+            if(localStorage.getItem('gh_pat')) {
+                document.getElementById('gh-token').value = localStorage.getItem('gh_pat');
+            }
+            handleRoute();
         });
-    });
 
-    // ==========================================
-    // OVERLAY CARD MECHANICS
-    // ==========================================
-    function openCard(key) {
-        // Find the corresponding card data in the hidden source
-        const dataElement = document.querySelector(`#cards-source .card-data[data-key="${key}"]`);
-        if (!dataElement) return;
-
-        // Extract text content from the plain text divs
-        const title = dataElement.querySelector('.card-title').textContent;
-        const date = dataElement.querySelector('.card-date').textContent;
-        const image = dataElement.querySelector('.card-image').textContent.trim();
-        const summary = dataElement.querySelector('.card-summary').textContent;
-        const link = dataElement.querySelector('.card-link').textContent.trim();
-
-        // Populate the visible overlay
-        document.getElementById('overlay-title').innerText = title;
-        document.getElementById('overlay-date').innerText = date;
-        document.getElementById('overlay-summary').innerText = summary;
-        document.getElementById('overlay-btn').href = link;
-        document.getElementById('overlay-image').src = image;
-
-        // Show overlay
-        document.getElementById('card-overlay').classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeCard() {
-        document.getElementById('card-overlay').classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-
-    // Close if clicking outside the card
-    document.getElementById('card-overlay').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeCard();
+        function handleRoute() {
+            const hash = window.location.hash;
+            if (hash === '#admin') {
+                showAdmin();
+            } else if (hash.startsWith('#post-')) {
+                const postId = hash.replace('#', '');
+                openArticle(postId);
+            } else {
+                showHome();
+            }
         }
-    });
 
-    // ==========================================
-    // STAR RATING MECHANICS
-    // ==========================================
-    const stars = document.querySelectorAll('.star');
-    stars.forEach((star, index) => {
-        star.addEventListener('click', () => {
-            stars.forEach((s, i) => {
-                if (i <= index) s.classList.add('active');
-                else s.classList.remove('active');
+        function showHome() {
+            window.location.hash = '';
+            document.getElementById('feed-view').style.display = 'block';
+            document.getElementById('article-view').style.display = 'none';
+            document.getElementById('admin-view').style.display = 'none';
+            renderFeed();
+        }
+
+        function showAdmin() {
+            window.location.hash = 'admin';
+            document.getElementById('feed-view').style.display = 'none';
+            document.getElementById('article-view').style.display = 'none';
+            document.getElementById('admin-view').style.display = 'block';
+        }
+
+        function renderFeed() {
+            const feed = document.getElementById('feed-view');
+            feed.innerHTML = '';
+            if (window.blogPosts.length === 0) {
+                feed.innerHTML = '<p style="text-align: center; color: var(--text-muted);">No posts yet. Go to #admin to publish.</p>';
+                return;
+            }
+            window.blogPosts.forEach(post => {
+                const card = document.createElement('div');
+                card.className = 'post-card';
+                card.onclick = () => window.location.hash = post.id;
+                card.innerHTML = `
+                    <h2>${post.title}</h2>
+                    <div class="meta">${post.date}</div>
+                    <p>${post.summary}</p>
+                `;
+                feed.appendChild(card);
             });
-        });
-    });
-
-    // ==========================================
-    // MOCK COMMENT MECHANICS (Frontend Only)
-    // ==========================================
-    function toggleReply(button) {
-        const form = button.nextElementSibling;
-        form.classList.toggle('active');
-    }
-
-    function postComment() {
-        const textarea = document.querySelector('.comment-form > textarea');
-        const text = textarea.value.trim();
-        if (text) {
-            const thread = document.getElementById('commentThread');
-            const newComment = document.createElement('li');
-            newComment.className = 'comment';
-            newComment.innerHTML = `
-                <div class="comment-header">
-                    <span class="comment-author">You (Guest)</span>
-                    <span class="comment-date">Just now</span>
-                </div>
-                <div class="comment-body">${text}</div>
-                <button class="btn-reply" onclick="toggleReply(this)">Reply</button>
-                <div class="reply-form">
-                    <textarea placeholder="Write a reply..."></textarea>
-                    <button class="btn-submit" style="font-size: 0.75rem; padding: 8px 15px;" onclick="postReply(this)">Submit Reply</button>
-                </div>
-            `;
-            thread.prepend(newComment);
-            textarea.value = '';
         }
-    }
 
-    function postReply(button) {
-        const form = button.parentElement;
-        const textarea = form.querySelector('textarea');
-        const text = textarea.value.trim();
-        if (text) {
-            const parentComment = form.parentElement;
-            let replyThread = parentComment.querySelector('.comment-thread');
+        let currentActiveCards = [];
+        function openArticle(id) {
+            const post = window.blogPosts.find(p => p.id === id);
+            if(!post) return showHome();
             
-            // Create a nested thread if it doesn't exist
-            if (!replyThread) {
-                replyThread = document.createElement('ul');
-                replyThread.className = 'comment-thread';
-                replyThread.style.marginTop = '20px';
-                parentComment.appendChild(replyThread);
+            document.getElementById('feed-view').style.display = 'none';
+            document.getElementById('admin-view').style.display = 'none';
+            document.getElementById('article-view').style.display = 'block';
+            
+            currentActiveCards = post.cards || [];
+            
+            const target = document.getElementById('article-content-target');
+            target.innerHTML = `
+                <div class="article-header">
+                    <h2>${post.title}</h2>
+                    <div class="article-meta">Published on ${post.date}</div>
+                </div>
+                <div class="article-body">
+                    ${post.content}
+                </div>
+                
+                <section id="comments-section">
+                    <h3 class="section-header">Review & Community Discussion</h3>
+                    <div class="rating-widget">
+                        <p>Rate this research piece</p>
+                        <div class="stars">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                        </div>
+                    </div>
+
+                    <div class="comment-form">
+                        <textarea placeholder="Share your thoughts or insights on this thread..."></textarea>
+                        <button class="btn-submit" onclick="postComment(this)">Post Comment</button>
+                    </div>
+
+                    <ul class="comment-thread" id="commentThread">
+                        <li class="comment">
+                            <div class="comment-header">
+                                <span class="comment-author">Dr. Aris Thorne</span>
+                                <span class="comment-date">2 days ago</span>
+                            </div>
+                            <div class="comment-body">Fascinating breakdown of the Consensus AI limits. It reminds me that much of human knowledge is still analog and deeply personal.</div>
+                            <button class="btn-reply" onclick="toggleReply(this)">Reply</button>
+                            <div class="reply-form">
+                                <textarea placeholder="Write a reply..."></textarea>
+                                <button class="btn-submit" style="font-size: 0.75rem; padding: 8px 15px; width: auto;" onclick="postReply(this)">Submit Reply</button>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <!-- GISCUS / DISQUS PLACEHOLDER -->
+                    <div id="giscus-container" style="margin-top: 40px; padding-top: 20px; border-top: 1px dashed var(--border-color);">
+                        <!-- Paste Giscus code here later if desired -->
+                    </div>
+                </section>
+            `;
+
+            // Attach listeners to inline wiki cards
+            document.querySelectorAll('.inline-card').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    const cardId = e.target.getAttribute('data-card');
+                    openDrawer(cardId);
+                });
+            });
+
+            // Attach Star Listeners
+            const stars = document.querySelectorAll('#comments-section .star');
+            stars.forEach((star, index) => {
+                star.addEventListener('click', () => {
+                    stars.forEach((s, i) => {
+                        if (i <= index) s.classList.add('active');
+                        else s.classList.remove('active');
+                    });
+                });
+            });
+        }
+
+        // Citation Drawer Engine Functions
+        function openDrawer(cardId) {
+            const cardData = currentActiveCards.find(c => c.id === cardId);
+            if(!cardData) return;
+
+            document.getElementById('d-title').innerText = cardData.title;
+            document.getElementById('d-date').innerText = cardData.date;
+            document.getElementById('d-abstract').innerText = cardData.abstract;
+            
+            const img = document.getElementById('d-img');
+            if(cardData.img) {
+                img.src = cardData.img;
+                img.style.display = 'block';
+            } else {
+                img.style.display = 'none';
+            }
+            
+            const link = document.getElementById('d-link');
+            if(cardData.link) {
+                link.href = cardData.link;
+                link.style.display = 'block';
+            } else {
+                link.style.display = 'none';
             }
 
-            const newReply = document.createElement('li');
-            newReply.className = 'comment reply';
-            newReply.innerHTML = `
-                <div class="comment-header">
-                    <span class="comment-author">You (Guest)</span>
-                    <span class="comment-date">Just now</span>
-                </div>
-                <div class="comment-body">${text}</div>
-                <button class="btn-reply" onclick="toggleReply(this)">Reply</button>
-                <div class="reply-form">
-                    <textarea placeholder="Write a reply..."></textarea>
-                    <button class="btn-submit" style="font-size: 0.75rem; padding: 8px 15px;" onclick="postReply(this)">Submit Reply</button>
-                </div>
-            `;
-            replyThread.appendChild(newReply);
-            textarea.value = '';
-            form.classList.remove('active');
+            document.getElementById('modal-overlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
-    }
-</script>
 
+        function closeDrawer() {
+            document.getElementById('modal-overlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Comment Mock Logic
+        function toggleReply(button) {
+            const form = button.nextElementSibling;
+            form.classList.toggle('active');
+        }
+
+        function postComment(button) {
+            const textarea = button.previousElementSibling;
+            const text = textarea.value.trim();
+            if (text) {
+                const thread = document.getElementById('commentThread');
+                const newComment = document.createElement('li');
+                newComment.className = 'comment';
+                newComment.innerHTML = `
+                    <div class="comment-header">
+                        <span class="comment-author">You (Guest)</span>
+                        <span class="comment-date">Just now</span>
+                    </div>
+                    <div class="comment-body">${text}</div>
+                    <button class="btn-reply" onclick="toggleReply(this)">Reply</button>
+                    <div class="reply-form">
+                        <textarea placeholder="Write a reply..."></textarea>
+                        <button class="btn-submit" style="font-size: 0.75rem; padding: 8px 15px; width: auto;" onclick="postReply(this)">Submit Reply</button>
+                    </div>
+                `;
+                thread.prepend(newComment);
+                textarea.value = '';
+            }
+        }
+
+        function postReply(button) {
+            const form = button.parentElement;
+            const textarea = form.querySelector('textarea');
+            const text = textarea.value.trim();
+            if (text) {
+                const parentComment = form.parentElement;
+                let replyThread = parentComment.querySelector('.comment-thread');
+                
+                if (!replyThread) {
+                    replyThread = document.createElement('ul');
+                    replyThread.className = 'comment-thread';
+                    replyThread.style.marginTop = '20px';
+                    parentComment.appendChild(replyThread);
+                }
+
+                const newReply = document.createElement('li');
+                newReply.className = 'comment reply';
+                newReply.innerHTML = `
+                    <div class="comment-header">
+                        <span class="comment-author">You (Guest)</span>
+                        <span class="comment-date">Just now</span>
+                    </div>
+                    <div class="comment-body">${text}</div>
+                    <button class="btn-reply" onclick="toggleReply(this)">Reply</button>
+                    <div class="reply-form">
+                        <textarea placeholder="Write a reply..."></textarea>
+                        <button class="btn-submit" style="font-size: 0.75rem; padding: 8px 15px; width: auto;" onclick="postReply(this)">Submit Reply</button>
+                    </div>
+                `;
+                replyThread.appendChild(newReply);
+                textarea.value = '';
+                form.classList.remove('active');
+            }
+        }
+
+        // Admin Dynamic Wiki Card Builder
+        function addWikiCardRow() {
+            const builder = document.getElementById('wiki-cards-builder');
+            const row = document.createElement('div');
+            row.className = 'wiki-builder-row';
+            row.innerHTML = `
+                <input type="text" placeholder="Card ID (e.g., anthony)" class="w-id">
+                <input type="text" placeholder="Card Title (e.g., Saint Anthony)" class="w-title">
+                <input type="text" placeholder="Timeline Date Frame (e.g., 251–356 AD)" class="w-date">
+                <input type="text" placeholder="Header Image URL" class="w-img">
+                <input type="text" placeholder="External Wikipedia Documentation Link" class="w-link">
+                <textarea placeholder="Pop-up summary text profile descriptor goes right here..." class="w-abstract" rows="2"></textarea>
+                <button class="remove-card-btn" onclick="this.parentElement.remove()">Remove Card</button>
+            `;
+            builder.appendChild(row);
+        }
+
+        // BACKEND MACHINE: Automator GitHub API Publisher Committer 
+        async function publishToGitHub() {
+            const token = document.getElementById('gh-token').value.trim();
+            const title = document.getElementById('post-title').value.trim();
+            const summary = document.getElementById('post-summary').value.trim();
+            const content = document.getElementById('post-content').value.trim();
+
+            if(!token || !title || !summary || !content) {
+                alert('Please enter your access token and fill out all post input parameters fields.');
+                return;
+            }
+
+            localStorage.setItem('gh_pat', token);
+
+            // Construct Card array data if provided
+            const cards = [];
+            document.querySelectorAll('.wiki-builder-row').forEach(row => {
+                const cid = row.querySelector('.w-id').value.trim();
+                if(cid) {
+                    cards.push({
+                        id: cid,
+                        title: row.querySelector('.w-title').value.trim(),
+                        date: row.querySelector('.w-date').value.trim(),
+                        img: row.querySelector('.w-img').value.trim(),
+                        link: row.querySelector('.w-link').value.trim(),
+                        abstract: row.querySelector('.w-abstract').value.trim()
+                    });
+                }
+            });
+
+            const newPost = {
+                id: 'post-' + Date.now(),
+                title: title,
+                date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+                summary: summary,
+                content: content,
+                cards: cards
+            };
+
+            const updatedPostsArray = [newPost, ...window.blogPosts];
+            const arrayString = `window.blogPosts = ${JSON.stringify(updatedPostsArray, null, 2)};`;
+
+            // Configuration Constants
+            const owner = "mrpalmer5-code";
+            const repo = "Palmer-Commentary-Insight";
+            const path = "index.html";
+            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+            try {
+                // 1. Fetch current file SHA
+                const fileRes = await fetch(url, {
+                    headers: { "Authorization": `token ${token}` }
+                });
+                if(!fileRes.ok) throw new Error("Could not retrieve file configuration tracking from GitHub.");
+                const fileData = await fileRes.json();
+                const sha = fileData.sha;
+                
+                // Decode old HTML content
+                const oldHtml = decodeURIComponent(escape(atob(fileData.content)));
+                
+                // 2. Perform safe swap across markers
+                const startMarker = "<!-- BLOG_DATA_START -->";
+                const endMarker = "<!-- BLOG_DATA_END -->";
+                
+                const beforeIdx = oldHtml.indexOf(startMarker);
+                const afterIdx = oldHtml.indexOf(endMarker);
+                
+                if(beforeIdx === -1 || afterIdx === -1) throw new Error("Code storage markers missing inside file configuration blueprint.");
+                
+                const newHtml = oldHtml.substring(0, beforeIdx + startMarker.length) + 
+                                `\n    <script>\n    ${arrayString}\n    <\/script>\n    ` + 
+                                oldHtml.substring(afterIdx);
+
+                // 3. Put request payload tracking back to origin repo
+                const putBody = {
+                    message: `Publish automated commentary entry: ${title}`,
+                    content: btoa(unescape(encodeURIComponent(newHtml))),
+                    sha: sha
+                };
+
+                const putRes = await fetch(url, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `token ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(putBody)
+                });
+
+                if(putRes.ok) {
+                    alert("Success! Entry successfully pushed to repo. Allow Vercel roughly 20 seconds to compile updates before visiting homepage.");
+                    window.location.hash = '';
+                    window.location.reload();
+                } else {
+                    const errData = await putRes.json();
+                    alert("Publish failed: " + errData.message);
+                }
+            } catch(e) {
+                alert("Runtime operation error: " + e.message);
+            }
+        }
+    </script>
 </body>
 </html>
